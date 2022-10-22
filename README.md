@@ -11,7 +11,7 @@
 
 ### Description
 
-This is an app that prepares users for programming style interviews by answering multiple choices programming related questions.
+Mobile App for preparing for techinical interviews with multiple choice style programming questions
 
 ### App Evaluation
 
