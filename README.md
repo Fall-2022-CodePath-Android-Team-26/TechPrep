@@ -13,6 +13,9 @@
 
 Mobile App for preparing for techinical interviews with multiple choice style programming questions
 
+**Motivations:** Practicing something like Leetcode.com on a mobile phone is not fun. We've tried it.
+Our goal is to allow programmers to improve their programming knowledge and problem solving via reading code on the go. 
+
 ### App Evaluation
 
 [Evaluation of your app across the following attributes]
