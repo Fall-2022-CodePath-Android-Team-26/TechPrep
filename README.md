@@ -40,7 +40,7 @@ Our goal is to allow programmers to improve their programming knowledge and prob
 
 * Login - keep track of progress (graphs, scores, success/fail percentage by topics)
 * User created questions
-* Timer mode
+* Timer mode / pomodoro
 * Pick 10,20,50 questions mode
 * Answer as many questions before x minutes (type of test)
 * Keep track of streak/highest score
