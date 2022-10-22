@@ -42,6 +42,7 @@ Mobile App for preparing for techinical interviews with multiple choice style pr
 * Answer as many questions before x minutes (type of test)
 * Keep track of streak/highest score
 * Daily reminder
+* Personal study notes
 
 ### 2. Screen Archetypes
 
