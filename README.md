@@ -35,7 +35,7 @@ Mobile App for preparing for techinical interviews with multiple choice style pr
 
 **Stretch Features**
 
-* Login - keep track of progress
+* Login - keep track of progress (graphs, scores, success/fail percentage by topics)
 * User created questions
 * Timer
 * Pick 10,20,50 questions
@@ -43,6 +43,7 @@ Mobile App for preparing for techinical interviews with multiple choice style pr
 * Keep track of streak/highest score
 * Daily reminder
 * Personal study notes
+* Enable offline mode with database that caches the question list
 
 ### 2. Screen Archetypes
 
