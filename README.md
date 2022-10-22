@@ -54,7 +54,7 @@ Our goal is to allow programmers to improve their programming knowledge and prob
   - Choose certain topics to work on
 - RecyclerView of the list of questions
   - Display programming questions
-- Clicking a question brings up Artifact?
+- Clicking a question brings up activity?
   - Lists the question and multiple choice options
 
 ### 3. Navigation
@@ -70,7 +70,7 @@ Our goal is to allow programmers to improve their programming knowledge and prob
 - Question Topics screen
   - => RecyclerView of the list of questions
 - RecyclerView of the list of questions
-  - => An artifact of a question + multiple choice options
+  - => An activity of a question + multiple choice options
 - An artifact of a question + multiple choice options
   - => A way to go back to the RecyclerView of questions (Back or Submit Button)
 
