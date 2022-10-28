@@ -50,10 +50,10 @@ Our goal is to allow programmers to improve their programming knowledge and prob
 
 ### 2. Screen Archetypes
 
-- Question topics
-  - Choose certain topics to work on
-- RecyclerView of the list of questions
-  - Display programming questions
+- Stream 
+  - Question topics - Choose certain topics to work on
+- Stream - 
+  - RecyclerView of the list of questions
 - Clicking a question brings up activity?
   - Lists the question and multiple choice options
 
