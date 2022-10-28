@@ -76,9 +76,4 @@ Our goal is to allow programmers to improve their programming knowledge and prob
 
 ## Wireframes
 
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
-
-### [BONUS] Digital Wireframes & Mockups
-
-### [BONUS] Interactive Prototype
+<img src="https://github.com/Fall-2022-CodePath-Android-Team-26/TechPrep/blob/main/project_wireframing.png" width=600>
