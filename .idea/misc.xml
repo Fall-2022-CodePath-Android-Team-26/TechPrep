@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Favour/Documents/TechPrep/app/src/main/res/drawable/submit_button.xml" value="0.1" />
+        <entry key="..\:/Users/Favour/Documents/TechPrep/app/src/main/res/layout/fragment_multiple_choice.xml" value="0.25" />
         <entry key="..\:/Users/avon1/AndroidStudioProjects/TechPrep/app/src/main/res/layout/activity_main.xml" value="0.26856884057971014" />
       </map>
     </option>
