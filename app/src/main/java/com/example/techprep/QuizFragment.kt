@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.asynchttpclient.AsyncHttpClient
+import com.codepath.asynchttpclient.BuildConfig
 import com.codepath.asynchttpclient.RequestParams
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import com.google.gson.Gson
@@ -47,7 +48,7 @@ class QuizFragment: Fragment() {
             override fun onSuccess(
                 statusCode: Int,
                 headers: Headers,
-                json: JsonHttpResponseHandler.JSON
+                json: JSON
             ) {
                 // The wait for a response is over
 
@@ -77,7 +78,7 @@ class QuizFragment: Fragment() {
                 // The wait for a response is over
                 // If the error is not null, log it!
                 t?.message?.let {
-                    Log.e("MoviesFragment", errorResponse)
+                    Log.e("QuizFragment", errorResponse)
                 }
             }
         }]
