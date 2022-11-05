@@ -40,6 +40,16 @@ class TopicListFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Call the new method within onViewCreated
+        fetchTopics()
+    }
+
+    private fun fetchTopics() {
+
+    }
+
     companion object {
         fun newInstance(): TopicListFragment {
             return TopicListFragment()
