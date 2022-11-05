@@ -15,7 +15,7 @@ import com.google.gson.reflect.TypeToken
 import okhttp3.Headers
 import org.json.JSONArray
 
-private const val API_KEY = "oFmx6mF9kqky6J9UaxsRlxwXyJifXRMpEoQPiSoA"
+private const val API_KEY = BuildConfig.API_KEY
 
 class QuizFragment: Fragment() {
     override fun onCreateView(
