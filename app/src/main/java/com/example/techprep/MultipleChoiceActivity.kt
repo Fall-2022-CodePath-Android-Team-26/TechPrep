@@ -8,14 +8,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.techprep.database.QuestionJson
 import com.example.techprep.databinding.ActivityMultipleChoiceBinding
+import com.example.techprep.questionList.QuestionListActivity
 import java.util.*
 
 class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
 
     private var binding: ActivityMultipleChoiceBinding? = null
     private var mCurrentPosition: Int = 1
-    private var mQuestionsList: MutableList<Question>? = null
+    private var mQuestionsList: MutableList<QuestionJson>? = null
     private var mSelectedOptionPosition: Int = 0
     private var mCorrectAnswer: Int = 0
 
@@ -36,20 +38,14 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
         binding?.tvOptionFour?.isClickable = true
         binding?.btnSubmit?.isClickable = false
 
-        val question: Question = mQuestionsList!![mCurrentPosition - 1]
-        binding?.progressBar?.progress = mCurrentPosition
-        binding?.tvProgress?.text = "$mCurrentPosition/${binding?.progressBar?.max}"
+        val question: QuestionJson = mQuestionsList!![mCurrentPosition - 1]
         binding?.tvQuestion?.text = question.question
         binding?.tvOptionOne?.text = question.optionOne
         binding?.tvOptionTwo?.text = question.optionTwo
         binding?.tvOptionThree?.text = question.optionThree
         binding?.tvOptionFour?.text = question.optionFour
 
-        if (mCurrentPosition == mQuestionsList!!.size) {
-            binding?.btnSubmit?.text = "FINISH"
-        } else {
-            binding?.btnSubmit?.text = "SUBMIT"
-        }
+        binding?.btnSubmit?.text = "SUBMIT"
     }
 
     private fun defaultOptionsView() {
@@ -79,28 +75,19 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.tvOptionOne -> {
-//                selectedOptionView(tvOptionOne!!,0)
-                tvOptionOne?.let {
-                    selectedOptionView(it, 1)
-                }
+                selectedOptionView(binding?.tvOptionOne!!,1)
             }
 
             R.id.tvOptionTwo -> {
-                tvOptionTwo?.let {
-                    selectedOptionView(it, 2)
-                }
+                selectedOptionView(binding?.tvOptionTwo!!,2)
             }
 
             R.id.tvOptionThree -> {
-                tvOptionThree?.let {
-                    selectedOptionView(it, 3)
-                }
+                selectedOptionView(binding?.tvOptionThree!!,3)
             }
 
             R.id.tvOptionFour -> {
-                tvOptionFour?.let {
-                    selectedOptionView(it, 4)
-                }
+                selectedOptionView(binding?.tvOptionFour!!,4)
             }
 
             R.id.btnSubmit -> {
@@ -110,10 +97,7 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
                     if (mCurrentPosition <= mQuestionsList!!.size) {
                         setQuestion()
                     } else {
-                        val intent = Intent(this, ResultActivity::class.java)
-                        intent.putExtra(Constants.USER_NAME, mUserName)
-                        intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswer)
-                        intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionsList!!.size)
+                        val intent = Intent(this, QuestionListActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
@@ -130,16 +114,16 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
                     answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
 
                     if (mCurrentPosition == mQuestionsList!!.size) {
-                        btnSubmit?.text = "FINISH"
+                        binding?.btnSubmit?.text = "FINISH"
                     } else {
-                        btnSubmit?.text = "NEXT QUESTION"
+                        binding?.btnSubmit?.text = "NEXT QUESTION"
                     }
 
                     mSelectedOptionPosition = 0
-                    tvOptionOne?.isClickable = false
-                    tvOptionTwo?.isClickable = false
-                    tvOptionThree?.isClickable = false
-                    tvOptionFour?.isClickable = false
+                    binding?.tvOptionOne?.isClickable = false
+                    binding?.tvOptionTwo?.isClickable = false
+                    binding?.tvOptionThree?.isClickable = false
+                    binding?.tvOptionFour?.isClickable = false
                 }
             }
         }
@@ -148,16 +132,16 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
     private fun answerView(answer: Int, drawableView: Int) {
         when (answer) {
             1 -> {
-                tvOptionOne?.background = ContextCompat.getDrawable(this, drawableView)
+                binding?.tvOptionOne?.background = ContextCompat.getDrawable(this, drawableView)
             }
             2 -> {
-                tvOptionTwo?.background = ContextCompat.getDrawable(this, drawableView)
+                binding?.tvOptionTwo?.background = ContextCompat.getDrawable(this, drawableView)
             }
             3 -> {
-                tvOptionThree?.background = ContextCompat.getDrawable(this, drawableView)
+                binding?.tvOptionThree?.background = ContextCompat.getDrawable(this, drawableView)
             }
             4 -> {
-                tvOptionFour?.background = ContextCompat.getDrawable(this, drawableView)
+                binding?.tvOptionFour?.background = ContextCompat.getDrawable(this, drawableView)
             }
         }
     }
