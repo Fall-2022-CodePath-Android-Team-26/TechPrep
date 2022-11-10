@@ -6,7 +6,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -32,7 +31,7 @@ class QuestionListAdapter (private val context: Context, private val questionLis
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        private var tvId: TextView = itemView.findViewById(R.id.tv_id)
+        private var tvId: TextView = itemView.findViewById(R.id.tv_date)
         private var tvQuestion: TextView = itemView.findViewById(R.id.tv_question)
         private var tvDescription: TextView = itemView.findViewById(R.id.tv_description)
         private var tvDifficulty: TextView = itemView.findViewById(R.id.tv_difficulty)
