@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.asynchttpclient.AsyncHttpClient
-import com.codepath.asynchttpclient.BuildConfig
 import com.codepath.asynchttpclient.RequestParams
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
+import com.example.techprep.BuildConfig.API_KEY
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.Headers
@@ -53,6 +53,8 @@ class QuizFragment: Fragment() {
                 // The wait for a response is over
 
                 val resultsJSON : JSONArray = json.jsonObject.get("results") as JSONArray
+
+                Log.i("JSON Response", json.toString())
 
                 val gson = Gson()
 //                val arrayQuestionType = object : TypeToken<List<Questions>>() {}.type
