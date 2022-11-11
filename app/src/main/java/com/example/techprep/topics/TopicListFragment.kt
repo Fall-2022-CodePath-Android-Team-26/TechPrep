@@ -16,12 +16,13 @@ import com.example.techprep.BuildConfig
 import com.example.techprep.R
 import com.example.techprep.database.QuestionJson
 import com.example.techprep.database.QuestionsApplication
+import com.example.techprep.database.QuestionsEntity
 import com.example.techprep.questionList.Question
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonNull.serializer
 import okhttp3.Headers
 import org.json.JSONArray
 import org.json.JSONException
@@ -76,6 +77,7 @@ class TopicListFragment : Fragment() {
     }
 
     private fun fetchQuestions() {
+        val questionEntityList = mutableListOf<QuestionsEntity>()
         val params = RequestParams()
         params["api_key"] = SEARCH_API_KEY
         val client = AsyncHttpClient()
@@ -86,26 +88,21 @@ class TopicListFragment : Fragment() {
                 response: String?,
                 throwable: Throwable?
             ) {
-                Log.e(TAG, "Failed to fetch articles: $statusCode")
+                Log.e(TAG, "Failed to fetch questions: $statusCode")
             }
 
             override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {
-                Log.i(TAG, "Successfully fetched articles: $json")
+                Log.i(TAG, "Successfully fetched questions: $json")
                 try {
-//                    // TODO: Create the parsedJSON
-//                    val parsedJson = createJson().decodeFromString(
-//                        TopicsResponse.serializer(),
-//                        json.jsonArray.toString()
-//                    )
-//                    // TODO: Do something with the returned json (contains article information)
-//                    parsedJson.response?.let { list ->
-//                        topics.addAll(list)
-//                        // TODO: Save the articles and reload the screen
-//                        topicAdapter.notifyDataSetChanged()
-//                    }
                     val jsonResponse: JSONArray = json.jsonArray as JSONArray
-                    for(i in 0..jsonResponse.length()){
-                        val jsonQuestion = jsonResponse.getJSONObject(i)
+                    val questionsRawJSON: String = jsonResponse.toString()
+                    val gson = Gson()
+                    val arrayQuestionType = object : TypeToken<List<QuestionsEntity>>() {}.type
+                    val models : List<QuestionsEntity> = gson.fromJson(questionsRawJSON, arrayQuestionType)
+
+                    // Insert questions into database
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        (activity?.application as QuestionsApplication).db.questionDao().insertAll(models)
                     }
 
                 } catch (e: JSONException) {
@@ -114,29 +111,7 @@ class TopicListFragment : Fragment() {
             }
 
         })
-        lifecycleScope.launch() {
-            (activity?.application as QuestionsApplication).db.questionDao().getAll().collect { databaseList ->
-                databaseList.map { entity ->
-                    Question(
-                        entity.api_id,
-                        entity.question,
-                        entity.description,
-                        entity.answers,
-                        entity.multiple_correct_answers,
-                        entity.correct_answers,
-                        entity.explanation,
-                        entity.tip,
-                        entity.tags,
-                        entity.category,
-                        entity.difficulty
-                    )
-                }.also { mappedList ->
-                    questionInfo.clear()
-                    questionInfo.addAll(mappedList)
-//                    diaryAdapter.notifyDataSetChanged()
-                }
-            }
-        }
+
     }
 
     companion object {
