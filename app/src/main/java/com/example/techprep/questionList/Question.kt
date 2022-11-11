@@ -21,7 +21,7 @@ class Question {
 
     @JvmField
     @SerializedName("answers")
-    val answers: List<QuestionJson>? = null
+    val answers: MutableList<QuestionJson>? = null
 
     @JvmField
     @SerializedName("multiple_correct_answers")
@@ -29,7 +29,7 @@ class Question {
 
     @JvmField
     @SerializedName("correct_answers")
-    val correct_answers:  List<QuestionJson>? = null
+    val correct_answers:  MutableList<QuestionJson>? = null
 
     @JvmField
     @SerializedName("explanation")
