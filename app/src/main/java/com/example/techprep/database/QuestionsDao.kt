@@ -7,7 +7,7 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface QuestionsDao {
+interface  QuestionsDao {
     @Query("SELECT * FROM questions_table")
     fun getAll(): Flow<List<QuestionsEntity>>
 

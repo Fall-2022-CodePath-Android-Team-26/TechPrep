@@ -11,9 +11,12 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.techprep.MultipleChoiceActivity
 import com.example.techprep.R
+import com.example.techprep.database.QuestionJson
 
-class QuestionListAdapter (private val context: Context, private val questionList: List<Question>) :
+class QuestionListAdapter (private val context: Context, private val questions: List<QuestionJson>) :
+
     RecyclerView.Adapter<QuestionListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,11 +25,11 @@ class QuestionListAdapter (private val context: Context, private val questionLis
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val question = questionList[position]
+        val question = questions[position]
         holder.bind(question)
     }
 
-    override fun getItemCount() =  questionList.size
+    override fun getItemCount() =  questions.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -40,29 +43,19 @@ class QuestionListAdapter (private val context: Context, private val questionLis
             itemView.setOnClickListener(this)
         }
 
-        // TODO: Write a helper method to help set up the onBindViewHolder method
-
         override fun onClick(v: View?) {
-            // TODO: Get selected article
-            val movie = questionList[absoluteAdapterPosition]
-            // TODO: Navigate to Details screen and pass selected article
-            val intent = Intent(context, TopRatedMovieDetailsActivity::class.java)
-            intent.putExtra(TOP_RATED_MOVIE_EXTRA, movie)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, (poster as View?)!!, "poster")
-            context.startActivity(intent, options.toBundle())
+            val question = questions[absoluteAdapterPosition]
+            val intent = Intent(context, MultipleChoiceActivity::class.java)
+            //intent.putExtra("Chosen Question", question)
+            context.startActivity(intent)
         }
 
-        fun bind(question: Question) {
-            tvId.text = question.title
-            val radius = 40; // corner radius, higher value = more rounded
-            val margin = 10; // crop margin, set to 0 for corners with no crop
-            Glide.with(itemView)
-                .load("https://image.tmdb.org/t/p/w500${movie.poster}")
-                .placeholder(R.drawable.ic_baseline_image_24)
-                .error(R.drawable.ic_baseline_image_not_supported_24)
-                .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(radius,margin)))
-                .into(poster)
-
+        fun bind(question: QuestionJson) {
+            tvId.text = "1"
+            tvQuestion.text = "What is Array?"
+            tvDifficulty.text = "Easy"
+            tvDescription.text = "description"
         }
+
     }
 }
