@@ -2,21 +2,52 @@ package com.example.techprep.questionList
 
 import android.support.annotation.Keep
 import com.example.techprep.database.QuestionJson
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Keep
-@Serializable
-data class Question(
-    @SerialName("api_id") val api_id: String?,
-    @SerialName("question") val question: String?,
-    @SerialName("description") val description: String?,
-    @SerialName("answers") val answers: List<QuestionJson>?,
-    @SerialName("multiple_correct_answers") val multiple_correct_answers: String?,
-    @SerialName("correct_answers") val correct_answers:  List<QuestionJson>?,
-    @SerialName("explanation") val explanation: String?,
-    @SerialName("tip") val tip: String?,
-    @SerialName("tags") val tags: String?,
-    @SerialName("category") val category: String?,
-    @SerialName("difficulty") val difficulty: String?
-) : java.io.Serializable
+class Question {
+    @JvmField
+    @SerializedName("id")
+    val id: String? = null
+
+    @JvmField
+    @SerializedName("question")
+    val question: String? = null
+
+    @JvmField
+    @SerializedName("description")
+    val description: String? = null
+
+    @JvmField
+    @SerializedName("answers")
+    val answers: List<QuestionJson>? = null
+
+    @JvmField
+    @SerializedName("multiple_correct_answers")
+    val multiple_correct_answers: String? = null
+
+    @JvmField
+    @SerializedName("correct_answers")
+    val correct_answers:  List<QuestionJson>? = null
+
+    @JvmField
+    @SerializedName("explanation")
+    val explanation: String? = null
+
+    @JvmField
+    @SerializedName("tip")
+    val tip: String? = null
+
+    @JvmField
+    @SerializedName("tags")
+    val tags: String? = null
+
+    @JvmField
+    @SerializedName("category")
+    val category: String? = null
+
+    @JvmField
+    @SerializedName("difficulty")
+    val difficulty: String? = null
+}
