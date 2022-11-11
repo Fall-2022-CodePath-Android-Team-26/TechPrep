@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.techprep.R
+import com.example.techprep.questionList.QuestionListActivity
+
+private const val QUESTION_TAG = "Question List"
 
 class TopicAdapter(private val context: Context, private val topics: List<Topic>) :
     RecyclerView.Adapter<TopicAdapter.ViewHolder>(){
@@ -54,9 +57,9 @@ class TopicAdapter(private val context: Context, private val topics: List<Topic>
             val topic = topics[adapterPosition]
 
             // Navigate to Details screen and pass selected article
-//            val intent = Intent(context, DetailActivity::class.java)
-//            intent.putExtra(ARTICLE_EXTRA, article)
-//            context.startActivity(intent)
+            val intent = Intent(context, QuestionListActivity::class.java)
+            intent.putExtra(QUESTION_TAG, topic)
+            context.startActivity(intent)
         }
 
     }
