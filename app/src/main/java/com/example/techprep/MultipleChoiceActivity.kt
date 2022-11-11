@@ -17,7 +17,7 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
 
     private var binding: ActivityMultipleChoiceBinding? = null
     private var mCurrentPosition: Int = 1
-    private var mQuestionsList: MutableList<QuestionJson>? = null
+    private var mQuestion: Question? = null
     private var mSelectedOptionPosition: Int = 0
     private var mCorrectAnswer: Int = 0
 
