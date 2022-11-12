@@ -5,20 +5,28 @@ import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.techprep.database.QuestionJson
+import com.example.techprep.database.QuestionsApplication
 import com.example.techprep.databinding.ActivityMultipleChoiceBinding
+import com.example.techprep.questionList.QUESTION_EXTRA
+import com.example.techprep.questionList.Question
 import com.example.techprep.questionList.QuestionListActivity
+import com.example.techprep.topics.QUESTION_TAG
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
 class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
 
     private var binding: ActivityMultipleChoiceBinding? = null
-    private var mQuestion: Question? = null
     private var mSelectedOptionPosition: Int = 0
-    private var mCorrectAnswer: Int = 0
+    private lateinit var mQuestion: Question
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,15 +34,37 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityMultipleChoiceBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        setQuestion()
+//        Log.i("GetSerializable", "test")
 
-        val resultIntent = Intent()
-        resultIntent.putExtra("new food", newFood)
-        setResult(RESULT_OK, resultIntent)
-        finish()
+        val questionId = (intent.getStringExtra(QUESTION_EXTRA))!!
+
+//        Log.i("GetSerializable", questionId)
+
+        val asyncJob = lifecycleScope.launch(Dispatchers.IO) {
+//            Log.i("DB response", "This is being repeated")
+
+            val question = (application as QuestionsApplication).db.questionDao()
+                .getIdQuestions(questionId)
+            mQuestion = Question(question.id,question.question,question.description, question.answers, question.multiple_correct_answers, question.correct_answers, question.explanation,
+            question.tip, question.tags, question.category, question.difficulty)
+//            Log.i("GetQuestion", question.question.toString())
+        }
+
+        while (asyncJob.isActive) {
+
+        }
+
+//        Log.i("GetSerializableQuestion", mQuestion.question.toString())
+
+        setQuestion(mQuestion)
+
+//        val resultIntent = Intent()
+//        resultIntent.putExtra("new food", newFood)
+//        setResult(RESULT_OK, resultIntent)
+//        finish()
     }
 
-    private fun setQuestion() {
+    private fun setQuestion(question: Question) {
         defaultOptionsView()
         binding?.tvOptionOne?.isClickable = true
         binding?.tvOptionTwo?.isClickable = true
@@ -42,12 +72,11 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
         binding?.tvOptionFour?.isClickable = true
         binding?.btnSubmit?.isClickable = false
 
-        val question: QuestionJson = mQuestionsList!![mCurrentPosition - 1]
         binding?.tvQuestion?.text = question.question
-        binding?.tvOptionOne?.text = question.optionOne
-        binding?.tvOptionTwo?.text = question.optionTwo
-        binding?.tvOptionThree?.text = question.optionThree
-        binding?.tvOptionFour?.text = question.optionFour
+        binding?.tvOptionOne?.text = question.answers?.get(0)?.value.toString()
+        binding?.tvOptionTwo?.text = question.answers?.get(1)?.value.toString()
+        binding?.tvOptionThree?.text = question.answers?.get(2)?.value.toString()
+        binding?.tvOptionFour?.text = question.answers?.get(3)?.value.toString()
 
         binding?.btnSubmit?.text = "SUBMIT"
     }
@@ -79,56 +108,50 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.tvOptionOne -> {
-                selectedOptionView(binding?.tvOptionOne!!,1)
+                selectedOptionView(binding?.tvOptionOne!!,0)
             }
 
             R.id.tvOptionTwo -> {
-                selectedOptionView(binding?.tvOptionTwo!!,2)
+                selectedOptionView(binding?.tvOptionTwo!!,1)
             }
 
             R.id.tvOptionThree -> {
-                selectedOptionView(binding?.tvOptionThree!!,3)
+                selectedOptionView(binding?.tvOptionThree!!,2)
             }
 
             R.id.tvOptionFour -> {
-                selectedOptionView(binding?.tvOptionFour!!,4)
+                selectedOptionView(binding?.tvOptionFour!!,3)
             }
 
             R.id.btnSubmit -> {
-                if (mSelectedOptionPosition == 0) {
-                    mCurrentPosition++
 
-                    if (mCurrentPosition <= mQuestionsList!!.size) {
-                        setQuestion()
-                    } else {
-                        val intent = Intent(this, QuestionListActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                }
-                else {
-                    val question = mQuestionsList?.get(mCurrentPosition - 1)
+                val correctAnswers = mQuestion.correct_answers
+                var correctAnswer: Int = 0
 
-                    if (question!!.correctAnswer != mSelectedOptionPosition) {
-                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                for(i in 0 until 3){
+                    if(correctAnswers?.get(i)?.value.toBoolean()){
+                        break
                     }else{
-                        mCorrectAnswer++
+                        correctAnswer++
                     }
-
-                    answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
-
-                    if (mCurrentPosition == mQuestionsList!!.size) {
-                        binding?.btnSubmit?.text = "FINISH"
-                    } else {
-                        binding?.btnSubmit?.text = "NEXT QUESTION"
-                    }
-
-                    mSelectedOptionPosition = 0
-                    binding?.tvOptionOne?.isClickable = false
-                    binding?.tvOptionTwo?.isClickable = false
-                    binding?.tvOptionThree?.isClickable = false
-                    binding?.tvOptionFour?.isClickable = false
                 }
+                if (correctAnswer != mSelectedOptionPosition) {
+                    answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                }
+
+                answerView(correctAnswer, R.drawable.correct_option_border_bg)
+
+                binding?.btnSubmit?.text = "SUBMIT"
+
+                binding?.tvOptionOne?.isClickable = false
+                binding?.tvOptionTwo?.isClickable = false
+                binding?.tvOptionThree?.isClickable = false
+                binding?.tvOptionFour?.isClickable = false
+
+
+//                val intent = Intent(this, QuestionListActivity::class.java)
+//                startActivity(intent)
+//                finish()
             }
         }
     }

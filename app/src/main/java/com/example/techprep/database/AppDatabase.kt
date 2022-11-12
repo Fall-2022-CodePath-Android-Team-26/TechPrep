@@ -12,37 +12,29 @@ import com.example.techprep.recordDatabase.RecordDao
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun questionDao(): QuestionsDao
-    abstract fun recordsDao(): RecordDao
+//    abstract fun recordsDao(): RecordDao
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        @Volatile
-        private var RECORDS_INSTANCE: AppDatabase? = null
+//        @Volatile
+//        private var RECORDS_INSTANCE: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context, false).also { INSTANCE = it }
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
 
-        fun getRecordsInstance(context: Context): AppDatabase =
-            RECORDS_INSTANCE ?: synchronized(this) {
-                RECORDS_INSTANCE ?: buildDatabase(context, true).also { RECORDS_INSTANCE = it }
-            }
+//        fun getRecordsInstance(context: Context): AppDatabase =
+//            RECORDS_INSTANCE ?: synchronized(this) {
+//                RECORDS_INSTANCE ?: buildDatabase(context, true).also { RECORDS_INSTANCE = it }
+//            }
 
-        private fun buildDatabase(context: Context, records: Boolean): AppDatabase{
-            return if(records){
-                Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java, "Records-db"
-                ).build()
-            }else{
+        private fun buildDatabase(context: Context): AppDatabase =
                 Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java, "Questions-db"
                 ).build()
-            }
-        }
     }
 }

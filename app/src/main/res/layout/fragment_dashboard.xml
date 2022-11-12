@@ -53,14 +53,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highest Score: 300"
+                    android:text="Highest Score: 20/20"
                     android:textColor="@color/lightGrey"
                     android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Max Streak: 5 days"
+                    android:text="Max Streak: 3 days"
                     android:textColor="@color/lightGrey"
                     android:textSize="16sp"/>
 
@@ -93,6 +93,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             tools:listitem="@layout/item_history"
+            android:layout_marginBottom="50dp"
             app:layout_constraintTop_toBottomOf="@id/tv_history"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

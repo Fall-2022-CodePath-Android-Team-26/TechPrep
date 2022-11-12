@@ -73,8 +73,7 @@ class TopicListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Call the new method within onViewCreated
-        val category = listOf<String>("Linux", "DevOps", "Kubernetes", "Docker", "Code", "MySQL",
-        "HTML", "BASH")
+        val category = listOf<String>("Linux", "DevOps", "Docker", "Code", "SQL", "BASH")
         for(i in category){
             fetchQuestions(i)
         }
@@ -142,7 +141,10 @@ class TopicListFragment : Fragment() {
                     // Insert questions into database
                     lifecycleScope.launch(Dispatchers.IO) {
                         Log.i("DB response", "This is being repeated")
-                        (activity?.application as QuestionsApplication).db.questionDao().insertAll(questionsEntityList)
+                        if(activity?.application != null) {
+                            (activity?.application as QuestionsApplication).db.questionDao()
+                                .insertAll(questionsEntityList)
+                        }
                     }
 
                 } catch (e: JSONException) {

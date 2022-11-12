@@ -36,11 +36,18 @@ object Constants {
         records.add(record4)
 
         val record5 = Record(
-            "11/8/2022","Systems",
+            "11/8/2022","HTML",
             15,20
         )
 
         records.add(record5)
+
+        val record6 = Record(
+            "11/8/2022","Kubernetes",
+            15,20
+        )
+
+        records.add(record6)
 
         return records
     }

@@ -3,6 +3,7 @@ package com.example.techprep.questionList
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,7 @@ class QuestionListAdapter (private val context: Context, private val questionLis
         private var questionId: TextView = itemView.findViewById(R.id.question_id)
         private var questionTitle: TextView = itemView.findViewById(R.id.question_title)
         private var questionDifficulty: TextView = itemView.findViewById(R.id.question_difficulty)
-        private var questionDescr: TextView = itemView.findViewById(R.id.question_description)
+        private var questionDescription: TextView = itemView.findViewById(R.id.question_description)
 
 
         init {
@@ -51,16 +52,17 @@ class QuestionListAdapter (private val context: Context, private val questionLis
             questionId.text = question.id
             questionTitle.text = question.question
             questionDifficulty.text = question.difficulty
-            questionDescr.text = question.description
+            questionDescription.text = question.description
         }
 
         override fun onClick(v: View?) {
             // Get selected question
-            val question = questionList[adapterPosition]
-
+            val question = questionList[absoluteAdapterPosition]
+            val id = question.id!!
+            Log.i("ABCXYZ", id)
             // Navigate to Details screen and pass selected question
             val intent = Intent(context, MultipleChoiceActivity::class.java)
-            intent.putExtra(QUESTION_EXTRA, question)
+            intent.putExtra(QUESTION_EXTRA, id)
             context.startActivity(intent)
         }
     }
