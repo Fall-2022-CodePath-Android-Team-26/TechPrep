@@ -9,6 +9,7 @@
         <entry key="..\:/Users/avon1/AndroidStudioProjects/TechPrep/app/src/main/res/layout/item_topic.xml" value="0.33469202898550726" />
         <entry key="..\:/Users/avon1/AndroidStudioProjects/TechPrep/app/src/main/res/layout/topic/fragment_topic_list.xml" value="0.33469202898550726" />
         <entry key="app/src/main/res/drawable/border_top_bottom.xml" value="0.2545" />
+        <entry key="app/src/main/res/drawable/correct_option_border_bg.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/ic_baseline_category_24.xml" value="0.2865" />
         <entry key="app/src/main/res/drawable/ic_baseline_custom_24.xml" value="0.2865" />
         <entry key="app/src/main/res/drawable/ic_baseline_dashboard_24.xml" value="0.2865" />

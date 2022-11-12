@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
+class MultipleChoiceActivity : AppCompatActivity() {
 
     private var binding: ActivityMultipleChoiceBinding? = null
     private var mSelectedOptionPosition: Int = 0
@@ -54,7 +54,7 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
 
         }
 
-//        Log.i("GetSerializableQuestion", mQuestion.question.toString())
+        Log.i("GetSerializableQuestion", mQuestion.toString())
 
         setQuestion(mQuestion)
 
@@ -79,6 +79,45 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
         binding?.tvOptionFour?.text = question.answers?.get(3)?.value.toString()
 
         binding?.btnSubmit?.text = "SUBMIT"
+
+        binding?.tvOptionOne?.setOnClickListener {
+            Log.i("Clicked", "Clicked")
+            selectedOptionView(binding?.tvOptionOne!!,0)
+        }
+
+        binding?.tvOptionTwo?.setOnClickListener {
+            Log.i("Clicked", "Clicked")
+            selectedOptionView(binding?.tvOptionTwo!!,1)
+        }
+
+        binding?.tvOptionThree?.setOnClickListener {
+            Log.i("Clicked", "Clicked")
+            selectedOptionView(binding?.tvOptionThree!!,2)
+        }
+
+        binding?.tvOptionFour?.setOnClickListener {
+            Log.i("Clicked", "Clicked")
+            selectedOptionView(binding?.tvOptionFour!!,3)
+        }
+
+        binding?.btnSubmit?.setOnClickListener {
+            Log.i("Clicked", "Clicked")
+            val correctAnswers = mQuestion.correct_answers
+            var correctAnswer: Int = 0
+
+            for(i in 0 until 3){
+                if(correctAnswers?.get(i)?.value.toBoolean()){
+                    break
+                }else{
+                    correctAnswer++
+                }
+            }
+            if (correctAnswer != mSelectedOptionPosition) {
+                answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+            }
+
+            answerView(correctAnswer, R.drawable.correct_option_border_bg)
+        }
     }
 
     private fun defaultOptionsView() {
@@ -105,56 +144,59 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
         tv.background = ContextCompat.getDrawable(this, R.drawable.selected_option_border_bg)
     }
 
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.tvOptionOne -> {
-                selectedOptionView(binding?.tvOptionOne!!,0)
-            }
+//    override fun onClick(view: View?) {
+//        when (view?.id) {
+//            R.id.tvOptionOne -> {
+//                Log.i("Clicked", "Clicked")
+//                selectedOptionView(binding?.tvOptionOne!!,0)
+//            }
+//
+//            R.id.tvOptionTwo -> {
+//                Log.i("Clicked", "Clicked")
+//                selectedOptionView(binding?.tvOptionTwo!!,1)
+//            }
+//
+//            R.id.tvOptionThree -> {
+//                Log.i("Clicked", "Clicked")
+//                selectedOptionView(binding?.tvOptionThree!!,2)
+//            }
+//
+//            R.id.tvOptionFour -> {
+//                Log.i("Clicked", "Clicked")
+//                selectedOptionView(binding?.tvOptionFour!!,3)
+//            }
+//
+//            R.id.btnSubmit -> {
+//                Log.i("Clicked", "Clicked")
+//                val correctAnswers = mQuestion.correct_answers
+//                var correctAnswer: Int = 0
+//
+//                for(i in 0 until 3){
+//                    if(correctAnswers?.get(i)?.value.toBoolean()){
+//                        break
+//                    }else{
+//                        correctAnswer++
+//                    }
+//                }
+//                if (correctAnswer != mSelectedOptionPosition) {
+//                    answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+//                }
+//
+//                answerView(correctAnswer, R.drawable.correct_option_border_bg)
 
-            R.id.tvOptionTwo -> {
-                selectedOptionView(binding?.tvOptionTwo!!,1)
-            }
 
-            R.id.tvOptionThree -> {
-                selectedOptionView(binding?.tvOptionThree!!,2)
-            }
-
-            R.id.tvOptionFour -> {
-                selectedOptionView(binding?.tvOptionFour!!,3)
-            }
-
-            R.id.btnSubmit -> {
-
-                val correctAnswers = mQuestion.correct_answers
-                var correctAnswer: Int = 0
-
-                for(i in 0 until 3){
-                    if(correctAnswers?.get(i)?.value.toBoolean()){
-                        break
-                    }else{
-                        correctAnswer++
-                    }
-                }
-                if (correctAnswer != mSelectedOptionPosition) {
-                    answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
-                }
-
-                answerView(correctAnswer, R.drawable.correct_option_border_bg)
-
-                binding?.btnSubmit?.text = "SUBMIT"
-
-                binding?.tvOptionOne?.isClickable = false
-                binding?.tvOptionTwo?.isClickable = false
-                binding?.tvOptionThree?.isClickable = false
-                binding?.tvOptionFour?.isClickable = false
+//                binding?.tvOptionOne?.isClickable = false
+//                binding?.tvOptionTwo?.isClickable = false
+//                binding?.tvOptionThree?.isClickable = false
+//                binding?.tvOptionFour?.isClickable = false
 
 
 //                val intent = Intent(this, QuestionListActivity::class.java)
 //                startActivity(intent)
 //                finish()
-            }
-        }
-    }
+//            }
+//        }
+//    }
 
     private fun answerView(answer: Int, drawableView: Int) {
         when (answer) {
