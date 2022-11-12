@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.techprep.R
 import com.example.techprep.questionList.QuestionListActivity
 
-private const val QUESTION_TAG = "Question List"
+const val QUESTION_TAG = "Question List"
 
 class TopicAdapter(private val context: Context, private val topics: List<Topic>) :
     RecyclerView.Adapter<TopicAdapter.ViewHolder>(){
@@ -44,7 +44,7 @@ class TopicAdapter(private val context: Context, private val topics: List<Topic>
         }
 
         override fun onClick(v: View?) {
-            val topicName = topics[absoluteAdapterPosition].name
+            val topic = topics[adapterPosition]
 
             // Navigate to Details screen and pass selected article
             val intent = Intent(context, QuestionListActivity::class.java)
