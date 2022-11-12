@@ -18,8 +18,6 @@ import com.example.techprep.database.QuestionJson
 import com.example.techprep.database.QuestionsApplication
 import com.example.techprep.database.QuestionsEntity
 import com.example.techprep.questionList.Question
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json

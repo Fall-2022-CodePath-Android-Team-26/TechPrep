@@ -15,11 +15,10 @@ import com.example.techprep.MultipleChoiceActivity
 import com.example.techprep.R
 import com.example.techprep.database.QuestionJson
 
-class QuestionListAdapter (private val context: Context, private val questions: List<QuestionJson>) :
 
 const val QUESTION_EXTRA = "QUESTION_EXTRA"
 
-class QuestionListAdapter (private val context: Context, private val questionList: List<Question>) :
+class QuestionListAdapter (private val context: Context, private val questions: List<Question>) :
 
     RecyclerView.Adapter<QuestionListAdapter.ViewHolder>() {
 
@@ -57,7 +56,7 @@ class QuestionListAdapter (private val context: Context, private val questionLis
 
         override fun onClick(v: View?) {
             // Get selected question
-            val question = questionList[adapterPosition]
+            val question = questions[adapterPosition]
 
             // Navigate to Details screen and pass selected question
             val intent = Intent(context, MultipleChoiceActivity::class.java)

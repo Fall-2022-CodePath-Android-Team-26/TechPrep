@@ -11,6 +11,9 @@ interface  QuestionsDao {
     @Query("SELECT * FROM questions_table")
     fun getAll(): Flow<List<QuestionsEntity>>
 
+    @Query("SELECT * FROM questions_table WHERE category = :category")
+    fun getCategoryQuestions(category: String?) : Flow<List<QuestionsEntity>>
+
     @Insert
     fun insertAll(questions: List<QuestionsEntity>)
 

@@ -10,7 +10,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.techprep.database.QuestionJson
 import com.example.techprep.databinding.ActivityMultipleChoiceBinding
-import com.example.techprep.questionList.QuestionListActivity
+import com.example.techprep.questionList.Question
+import com.example.techprep.topics.QUESTION_TAG
+import com.example.techprep.topics.Topic
 import java.util.*
 
 class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
@@ -26,15 +28,17 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityMultipleChoiceBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        setQuestion()
+        mQuestion = intent.getSerializableExtra(QUESTION_TAG) as Question
 
-        val resultIntent = Intent()
-        resultIntent.putExtra("new food", newFood)
-        setResult(RESULT_OK, resultIntent)
-        finish()
+        setQuestion(mQuestion!!)
+
+//        val resultIntent = Intent()
+//        resultIntent.putExtra("new food", newFood)
+//        setResult(RESULT_OK, resultIntent)
+//        finish()
     }
 
-    private fun setQuestion() {
+    private fun setQuestion(question: Question) {
         defaultOptionsView()
         binding?.tvOptionOne?.isClickable = true
         binding?.tvOptionTwo?.isClickable = true
@@ -42,12 +46,11 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
         binding?.tvOptionFour?.isClickable = true
         binding?.btnSubmit?.isClickable = false
 
-        val question: QuestionJson = mQuestionsList!![mCurrentPosition - 1]
         binding?.tvQuestion?.text = question.question
-        binding?.tvOptionOne?.text = question.optionOne
-        binding?.tvOptionTwo?.text = question.optionTwo
-        binding?.tvOptionThree?.text = question.optionThree
-        binding?.tvOptionFour?.text = question.optionFour
+        binding?.tvOptionOne?.text = question.answers?.get(0)?.value.toString()
+        binding?.tvOptionTwo?.text = question.answers?.get(1)?.value.toString()
+        binding?.tvOptionThree?.text = question.answers?.get(2)?.value.toString()
+        binding?.tvOptionFour?.text = question.answers?.get(3)?.value.toString()
 
         binding?.btnSubmit?.text = "SUBMIT"
     }
@@ -95,40 +98,31 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btnSubmit -> {
-                if (mSelectedOptionPosition == 0) {
-                    mCurrentPosition++
 
-                    if (mCurrentPosition <= mQuestionsList!!.size) {
-                        setQuestion()
-                    } else {
-                        val intent = Intent(this, QuestionListActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                }
-                else {
-                    val question = mQuestionsList?.get(mCurrentPosition - 1)
+                val correctAnswers = mQuestion?.correct_answers
+                var correctAnswer: Int = 1
 
-                    if (question!!.correctAnswer != mSelectedOptionPosition) {
-                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                for(i in 0 until 4){
+                    if(correctAnswers?.get(i)?.value.toBoolean()){
+                        break
                     }else{
-                        mCorrectAnswer++
+                        correctAnswer++
                     }
-
-                    answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
-
-                    if (mCurrentPosition == mQuestionsList!!.size) {
-                        binding?.btnSubmit?.text = "FINISH"
-                    } else {
-                        binding?.btnSubmit?.text = "NEXT QUESTION"
-                    }
-
-                    mSelectedOptionPosition = 0
-                    binding?.tvOptionOne?.isClickable = false
-                    binding?.tvOptionTwo?.isClickable = false
-                    binding?.tvOptionThree?.isClickable = false
-                    binding?.tvOptionFour?.isClickable = false
                 }
+
+                if (correctAnswer != mSelectedOptionPosition) {
+                    answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                }
+
+                answerView(correctAnswer, R.drawable.correct_option_border_bg)
+
+                binding?.btnSubmit?.text = "Submit"
+
+                binding?.tvOptionOne?.isClickable = false
+                binding?.tvOptionTwo?.isClickable = false
+                binding?.tvOptionThree?.isClickable = false
+                binding?.tvOptionFour?.isClickable = false
+
             }
         }
     }
