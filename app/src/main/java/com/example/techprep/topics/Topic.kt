@@ -15,5 +15,5 @@ data class TopicsResponse(
 @Serializable
 data class Topic(
     @SerialName("category")
-    val name : String? = null,
+    val name : String? = null
 ) : java.io.Serializable
