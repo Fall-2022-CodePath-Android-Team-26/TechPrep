@@ -16,6 +16,8 @@ Mobile App for preparing for technical interviews with multiple choice style pro
 **Motivations:** Practicing something like Leetcode.com on a mobile phone is not fun. We've tried it.
 Our goal is to allow programmers to improve their programming knowledge and problem solving via reading code on the go. 
 
+![](https://github.com/Fall-2022-CodePath-Android-Team-26/TechPrep/blob/main/appDemo.gif)
+
 ### App Evaluation
 
 [Evaluation of your app across the following attributes]
@@ -33,7 +35,7 @@ Our goal is to allow programmers to improve their programming knowledge and prob
 **Required Features**
 
 - [x] Display programming questions (multiple choice)
-- [ ] Display correct and wrong solutions at the end
+- [x] Display correct and wrong solutions at the end
 - [x] Choose certain topics to work on
 - [x] Create topic screen, questionlist screen, multiple choice question screen
 - [x] HTTP request to QuizAPI
