@@ -32,11 +32,11 @@ Our goal is to allow programmers to improve their programming knowledge and prob
 
 **Required Features**
 
-[] Display programming questions (multiple choice)
-[] Display correct and wrong solutions at the end
-[] Choose certain topics to work on
-[x] Create topic screen, questionlist screen, multiple choice question screen
-[x] HTTP request to QuizAPI
+- [x] Display programming questions (multiple choice)
+- [ ] Display correct and wrong solutions at the end
+- [x] Choose certain topics to work on
+- [x] Create topic screen, questionlist screen, multiple choice question screen
+- [x] HTTP request to QuizAPI
 
 **Stretch Features**
 
