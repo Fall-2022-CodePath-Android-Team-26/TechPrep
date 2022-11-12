@@ -11,7 +11,10 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.techprep.MultipleChoiceActivity
 import com.example.techprep.R
+
+const val QUESTION_EXTRA = "QUESTION_EXTRA"
 
 class QuestionListAdapter (private val context: Context, private val questionList: List<Question>) :
     RecyclerView.Adapter<QuestionListAdapter.ViewHolder>() {
@@ -31,38 +34,33 @@ class QuestionListAdapter (private val context: Context, private val questionLis
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        private var tvId: TextView = itemView.findViewById(R.id.tv_date)
-        private var tvQuestion: TextView = itemView.findViewById(R.id.tv_question)
-        private var tvDescription: TextView = itemView.findViewById(R.id.tv_description)
-        private var tvDifficulty: TextView = itemView.findViewById(R.id.tv_difficulty)
+        private var questionId: TextView = itemView.findViewById(R.id.question_id)
+        private var questionTitle: TextView = itemView.findViewById(R.id.question_title)
+        private var questionDifficulty: TextView = itemView.findViewById(R.id.question_difficulty)
+        private var questionDescr: TextView = itemView.findViewById(R.id.question_description)
+
 
         init {
             itemView.setOnClickListener(this)
         }
 
-        // TODO: Write a helper method to help set up the onBindViewHolder method
+        fun bind(question: Question) {
+            questionId.text = question.id
+            questionTitle.text = question.question
+            questionDifficulty.text = question.difficulty
+            questionDescr.text = question.description
+        }
 
         override fun onClick(v: View?) {
-            // TODO: Get selected article
-            val movie = questionList[absoluteAdapterPosition]
-            // TODO: Navigate to Details screen and pass selected article
-            val intent = Intent(context, TopRatedMovieDetailsActivity::class.java)
-            intent.putExtra(TOP_RATED_MOVIE_EXTRA, movie)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, (poster as View?)!!, "poster")
-            context.startActivity(intent, options.toBundle())
+            // Get selected question
+            val question = questionList[adapterPosition]
+
+            // Navigate to Details screen and pass selected question
+            val intent = Intent(context, MultipleChoiceActivity::class.java)
+            intent.putExtra(QUESTION_EXTRA, question)
+            context.startActivity(intent)
         }
 
-        fun bind(question: Question) {
-            tvId.text = question.title
-            val radius = 40; // corner radius, higher value = more rounded
-            val margin = 10; // crop margin, set to 0 for corners with no crop
-            Glide.with(itemView)
-                .load("https://image.tmdb.org/t/p/w500${movie.poster}")
-                .placeholder(R.drawable.ic_baseline_image_24)
-                .error(R.drawable.ic_baseline_image_not_supported_24)
-                .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(radius,margin)))
-                .into(poster)
 
-        }
     }
 }

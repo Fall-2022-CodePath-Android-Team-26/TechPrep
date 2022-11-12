@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/tv_date"
+        android:id="@+id/question_id"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="1"
@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_difficulty"
+        android:id="@+id/question_difficulty"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="Medium"
@@ -28,10 +28,10 @@
         android:layout_marginLeft="10dp"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_date"/>
+        app:layout_constraintTop_toBottomOf="@id/question_id"/>
 
     <TextView
-        android:id="@+id/tv_question"
+        android:id="@+id/question_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="How to delete a directory in Linux?"
@@ -42,10 +42,10 @@
         android:ellipsize="end"
         android:textSize="16sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_date"/>
+        app:layout_constraintStart_toEndOf="@id/question_id"/>
 
     <TextView
-        android:id="@+id/tv_description"
+        android:id="@+id/question_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"
@@ -55,7 +55,7 @@
         android:ellipsize="end"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@id/tv_difficulty"
-        app:layout_constraintTop_toBottomOf="@id/tv_question" />
+        app:layout_constraintStart_toEndOf="@id/question_difficulty"
+        app:layout_constraintTop_toBottomOf="@id/question_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
