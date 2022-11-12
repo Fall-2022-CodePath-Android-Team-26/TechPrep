@@ -13,10 +13,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.techprep.MultipleChoiceActivity
 import com.example.techprep.R
+import com.example.techprep.database.QuestionJson
+
+class QuestionListAdapter (private val context: Context, private val questions: List<QuestionJson>) :
 
 const val QUESTION_EXTRA = "QUESTION_EXTRA"
 
 class QuestionListAdapter (private val context: Context, private val questionList: List<Question>) :
+
     RecyclerView.Adapter<QuestionListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,11 +29,11 @@ class QuestionListAdapter (private val context: Context, private val questionLis
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val question = questionList[position]
+        val question = questions[position]
         holder.bind(question)
     }
 
-    override fun getItemCount() =  questionList.size
+    override fun getItemCount() =  questions.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -60,7 +64,5 @@ class QuestionListAdapter (private val context: Context, private val questionLis
             intent.putExtra(QUESTION_EXTRA, question)
             context.startActivity(intent)
         }
-
-
     }
 }

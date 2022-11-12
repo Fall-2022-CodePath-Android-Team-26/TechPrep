@@ -12,6 +12,7 @@ import com.codepath.asynchttpclient.RequestParams
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.example.techprep.BuildConfig.API_KEY
 import okhttp3.Headers
 import org.json.JSONArray
 

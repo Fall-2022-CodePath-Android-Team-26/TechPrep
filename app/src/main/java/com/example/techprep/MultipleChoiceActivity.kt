@@ -16,8 +16,7 @@ import java.util.*
 class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
 
     private var binding: ActivityMultipleChoiceBinding? = null
-    private var mCurrentPosition: Int = 1
-    private var mQuestionsList: MutableList<QuestionJson>? = null
+    private var mQuestion: Question? = null
     private var mSelectedOptionPosition: Int = 0
     private var mCorrectAnswer: Int = 0
 
@@ -28,6 +27,11 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding?.root)
 
         setQuestion()
+
+        val resultIntent = Intent()
+        resultIntent.putExtra("new food", newFood)
+        setResult(RESULT_OK, resultIntent)
+        finish()
     }
 
     private fun setQuestion() {
