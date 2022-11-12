@@ -74,18 +74,26 @@ class TopicListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Call the new method within onViewCreated
-        fetchQuestions()
-        fetchTopics()
+        val category = listOf<String>("Linux", "DevOps", "Kubernetes", "Docker", "Code", "MySQL",
+        "HTML", "BASH")
+        for(i in category){
+            fetchQuestions(i)
+        }
+        fetchTopics(category)
     }
 
-    private fun fetchTopics() {
-
+    private fun fetchTopics(category: List<String>) {
+        for(i in category){
+            topics.add(Topic(i))
+        }
+        topicAdapter.notifyDataSetChanged()
     }
 
-    private fun fetchQuestions() {
+    private fun fetchQuestions(category: String?) {
         val questionEntityList = mutableListOf<QuestionsEntity>()
         val params = RequestParams()
         params["apiKey"] = SEARCH_API_KEY
+        params["category"] =  category
         val client = AsyncHttpClient()
         client.get(TOPIC_SEARCH_URL, params, object : JsonHttpResponseHandler() {
             override fun onFailure(
@@ -98,7 +106,7 @@ class TopicListFragment : Fragment() {
             }
 
             override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {
-                Log.i(TAG, "Successfully fetched questions: $json")
+//                Log.i(TAG, "Successfully fetched questions: $json")
                 try {
                     val jsonResponse: JSONArray = json.jsonArray as JSONArray
                     val questionsRawJSON: String = jsonResponse.toString()
@@ -129,12 +137,12 @@ class TopicListFragment : Fragment() {
                             difficulty = responseObject.get("difficulty").toString(),
                         )
                         questionsEntityList.add(questionEntity)
-
                     }
 
                     Log.i("Database", questionsRawJSON)
                     // Insert questions into database
                     lifecycleScope.launch(Dispatchers.IO) {
+                        Log.i("DB response", "This is being repeated")
                         (activity?.application as QuestionsApplication).db.questionDao().insertAll(questionsEntityList)
                     }
 
