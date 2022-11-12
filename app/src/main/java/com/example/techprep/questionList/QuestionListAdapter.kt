@@ -17,6 +17,10 @@ import com.example.techprep.database.QuestionJson
 
 class QuestionListAdapter (private val context: Context, private val questions: List<QuestionJson>) :
 
+const val QUESTION_EXTRA = "QUESTION_EXTRA"
+
+class QuestionListAdapter (private val context: Context, private val questionList: List<Question>) :
+
     RecyclerView.Adapter<QuestionListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,28 +38,31 @@ class QuestionListAdapter (private val context: Context, private val questions: 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        private var tvId: TextView = itemView.findViewById(R.id.tv_date)
-        private var tvQuestion: TextView = itemView.findViewById(R.id.tv_question)
-        private var tvDescription: TextView = itemView.findViewById(R.id.tv_description)
-        private var tvDifficulty: TextView = itemView.findViewById(R.id.tv_difficulty)
+        private var questionId: TextView = itemView.findViewById(R.id.question_id)
+        private var questionTitle: TextView = itemView.findViewById(R.id.question_title)
+        private var questionDifficulty: TextView = itemView.findViewById(R.id.question_difficulty)
+        private var questionDescr: TextView = itemView.findViewById(R.id.question_description)
+
 
         init {
             itemView.setOnClickListener(this)
         }
 
+        fun bind(question: Question) {
+            questionId.text = question.id
+            questionTitle.text = question.question
+            questionDifficulty.text = question.difficulty
+            questionDescr.text = question.description
+        }
+
         override fun onClick(v: View?) {
-            val question = questions[absoluteAdapterPosition]
+            // Get selected question
+            val question = questionList[adapterPosition]
+
+            // Navigate to Details screen and pass selected question
             val intent = Intent(context, MultipleChoiceActivity::class.java)
-            //intent.putExtra("Chosen Question", question)
+            intent.putExtra(QUESTION_EXTRA, question)
             context.startActivity(intent)
         }
-
-        fun bind(question: QuestionJson) {
-            tvId.text = "1"
-            tvQuestion.text = "What is Array?"
-            tvDifficulty.text = "Easy"
-            tvDescription.text = "description"
-        }
-
     }
 }
