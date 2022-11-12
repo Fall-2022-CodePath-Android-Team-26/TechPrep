@@ -73,8 +73,7 @@ class TopicListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Call the new method within onViewCreated
-        val category = listOf<String>("Linux", "DevOps", "Kubernetes", "Docker", "Code", "MySQL",
-        "HTML", "BASH")
+        val category = listOf<String>("Linux", "DevOps", "Docker", "Code", "SQL", "BASH")
         for(i in category){
             fetchQuestions(i)
         }
