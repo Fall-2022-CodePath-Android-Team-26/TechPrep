@@ -26,7 +26,6 @@ class TopicListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment - recyclerView layout
         val view = inflater.inflate(R.layout.fragment_topic_list, container, false)
 
         val layoutManager = LinearLayoutManager(context)

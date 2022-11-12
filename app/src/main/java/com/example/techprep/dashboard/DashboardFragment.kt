@@ -11,10 +11,12 @@ import com.example.techprep.R
 import com.example.techprep.topics.Topic
 import com.example.techprep.topics.TopicAdapter
 import com.example.techprep.topics.TopicListFragment
+import com.example.techprep.utils.Constants
+import java.util.ArrayList
 
 
 class DashboardFragment : Fragment() {
-    private val records = mutableListOf<Record>()
+    private lateinit var records : ArrayList<Record>
     private lateinit var rvHistory: RecyclerView
     private lateinit var historyAdapter: HistoryAdapter
 
@@ -28,6 +30,7 @@ class DashboardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment - recyclerView layout
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        records = Constants.getRecords()
 
         val layoutManager = LinearLayoutManager(context)
         rvHistory = view.findViewById(R.id.rv_history)
@@ -40,19 +43,19 @@ class DashboardFragment : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // Call the new method within onViewCreated
-        fetchRecords()
-    }
-
-    private fun fetchRecords() {
-
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        // Call the new method within onViewCreated
+//        fetchRecords()
+//    }
+//
+//    private fun fetchRecords() {
+//
+//    }
 
     companion object {
-        fun newInstance(): TopicListFragment {
-            return TopicListFragment()
+        fun newInstance(): DashboardFragment {
+            return DashboardFragment()
         }
     }
 }
