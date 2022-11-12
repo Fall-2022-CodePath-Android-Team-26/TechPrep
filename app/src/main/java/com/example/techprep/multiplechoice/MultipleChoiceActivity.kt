@@ -1,4 +1,4 @@
-package com.example.techprep
+package com.example.techprep.multiplechoice
 
 import android.content.Intent
 import android.graphics.Color
@@ -8,8 +8,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.techprep.R
 import com.example.techprep.database.QuestionJson
 import com.example.techprep.databinding.ActivityMultipleChoiceBinding
+import com.example.techprep.questionList.QUESTION_EXTRA
+import com.example.techprep.questionList.Question
 import com.example.techprep.questionList.QuestionListActivity
 import java.util.*
 
@@ -38,12 +41,17 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
         binding?.tvOptionFour?.isClickable = true
         binding?.btnSubmit?.isClickable = false
 
-        val question: QuestionJson = mQuestionsList!![mCurrentPosition - 1]
+//        val question: QuestionJson = mQuestionsList!![mCurrentPosition - 1]
+        val question = intent.getSerializableExtra(QUESTION_EXTRA) as Question
+        val choices = mutableListOf<String>()
+        for(i in question.answers!!){
+            choices.add(i.toString())
+        }
         binding?.tvQuestion?.text = question.question
-        binding?.tvOptionOne?.text = question.optionOne
-        binding?.tvOptionTwo?.text = question.optionTwo
-        binding?.tvOptionThree?.text = question.optionThree
-        binding?.tvOptionFour?.text = question.optionFour
+        binding?.tvOptionOne?.text = choices[0]
+        binding?.tvOptionTwo?.text = choices[1]
+        binding?.tvOptionThree?.text = choices[2]
+        binding?.tvOptionFour?.text = choices[3]
 
         binding?.btnSubmit?.text = "SUBMIT"
     }
@@ -103,7 +111,8 @@ class MultipleChoiceActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
                 else {
-                    val question = mQuestionsList?.get(mCurrentPosition - 1)
+                    val question = intent.getSerializableExtra(QUESTION_EXTRA) as Question
+
 
                     if (question!!.correctAnswer != mSelectedOptionPosition) {
                         answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
