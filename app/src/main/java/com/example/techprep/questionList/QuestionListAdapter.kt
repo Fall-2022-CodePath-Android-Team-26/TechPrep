@@ -15,7 +15,6 @@ import com.example.techprep.MultipleChoiceActivity
 import com.example.techprep.R
 import com.example.techprep.database.QuestionJson
 
-class QuestionListAdapter (private val context: Context, private val questions: List<QuestionJson>) :
 
 const val QUESTION_EXTRA = "QUESTION_EXTRA"
 
@@ -29,11 +28,11 @@ class QuestionListAdapter (private val context: Context, private val questionLis
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val question = questions[position]
+        val question = questionList[position]
         holder.bind(question)
     }
 
-    override fun getItemCount() =  questions.size
+    override fun getItemCount() =  questionList.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
